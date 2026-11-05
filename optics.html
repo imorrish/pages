@@ -313,7 +313,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
   <!-- depth of field -->
   <section class="panel" style="--ac:var(--green)">
     <div class="ptitle"><b></b>Depth of field — sharp band &amp; bokeh scale (log distance)</div>
-    <svg viewBox="0 0 1200 196" role="img" aria-label="Depth of field range on a logarithmic distance scale">
+    <svg viewBox="0 0 1200 212" role="img" aria-label="Depth of field range on a logarithmic distance scale">
       <defs>
         <radialGradient id="bokehGrad"><stop offset="0" stop-color="rgba(255,180,84,.75)"/><stop offset=".6" stop-color="rgba(255,107,94,.35)"/><stop offset="1" stop-color="rgba(255,107,94,0)"/></radialGradient>
       </defs>
@@ -339,7 +339,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
         <text class="mk-lbl" y="88" fill="var(--cyan)">far</text></g>
 
       <!-- bokeh strip -->
-      <line x1="30" y1="112" x2="1170" y2="112" stroke="#24344a" stroke-width="1"/>
+      <line x1="30" y1="128" x2="1170" y2="128" stroke="#24344a" stroke-width="1"/>
       <g id="bokG"></g>
     </svg>
   </section>
@@ -510,15 +510,15 @@ function xT(d){if(!isFinite(d))return 1170;const lo=200,hi=150000;
 {const g=$('ticksG');[.3,.5,1,2,5,10,20,50].forEach(m=>{
   const x=xT(m*1000),t=document.createElementNS('http://www.w3.org/2000/svg','g');
   t.setAttribute('class','tick');
-  t.innerHTML=`<line x1="${x}" y1="64" x2="${x}" y2="74"/><text x="${x}" y="98">${m} m</text>`;
+  t.innerHTML=`<line x1="${x}" y1="64" x2="${x}" y2="74"/><text x="${x}" y="112">${m} m</text>`;
   g.appendChild(t);});}
 
 /* bokeh dots */
 const BOK=[300,600,1200,2400,4800,9600,19200,38400].map(d=>{
   const x=xT(d),c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-  c.setAttribute('cx',x);c.setAttribute('cy',138);c.setAttribute('r',3);
+  c.setAttribute('cx',x);c.setAttribute('cy',154);c.setAttribute('r',3);
   const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-  t.setAttribute('class','bok-lbl');t.setAttribute('x',x);t.setAttribute('y',176);
+  t.setAttribute('class','bok-lbl');t.setAttribute('x',x);t.setAttribute('y',198);
   t.textContent=fmtMM(d).replace(' ','');
   $('bokG').append(c,t);return{c,d};
 });
