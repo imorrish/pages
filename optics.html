@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,14 +80,8 @@ svg.bench{width:100%;height:auto;display:block}
 .axis{stroke:#3a4d68;stroke-width:1.4;stroke-dasharray:2 6}
 .lbl{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:var(--mut)}
 .lbl.big{font-size:13.5px;fill:var(--ink);font-weight:600}
-.subject{fill:#c7d7e6;stroke:#e9f1f8;stroke-width:1.2;opacity:.9;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35))}
-.subject-detail{fill:none;stroke:#8ea3ba;stroke-width:1.4;stroke-linecap:round;opacity:.85}
-.subject-ground{fill:rgba(95,212,255,.12);stroke:#3a6680;stroke-width:1}
-.perspective{fill:none;stroke:#35506d;stroke-width:1;stroke-dasharray:3 7;opacity:.65}
-.lens-barrel{fill:rgba(95,212,255,.06);stroke:#3e7895;stroke-width:1.5}
-.lens-element{fill:rgba(95,212,255,.18);stroke:#5fd4ff;stroke-width:1.2}
 
-/* ---------- DoF track ---------- */
+/* ---------- DoF track (type doubled) ---------- */
 .band{fill:rgba(126,224,138,.22)}
 .band-edge{stroke:var(--green);stroke-width:2}
 .tick line{stroke:#3a4d68;stroke-width:1.2}
@@ -165,14 +159,6 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
 @media (max-width:560px){.gauges{grid-template-columns:repeat(2,1fr)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-
-<!--[if gte mso 9]><xml>
-<mso:CustomDocumentProperties>
-<mso:_dlc_DocId msdt:dt="string">IANM-322605984-62</mso:_dlc_DocId>
-<mso:_dlc_DocIdItemGuid msdt:dt="string">2ff07d2c-4c42-47db-bbc5-48bfe4362c15</mso:_dlc_DocIdItemGuid>
-<mso:_dlc_DocIdUrl msdt:dt="string">https://ilcnz.sharepoint.com/sites/Ian/_layouts/15/DocIdRedir.aspx?ID=IANM-322605984-62, IANM-322605984-62</mso:_dlc_DocIdUrl>
-</mso:CustomDocumentProperties>
-</xml><![endif]-->
 </head>
 <body>
 <div class="glow a"></div><div class="glow b"></div>
@@ -208,7 +194,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
 
   <div class="ctl">
     <div class="ctl-top"><label for="slF">Focal length</label><output id="vF">50 mm</output></div>
-    <input type="range" id="slF" min="0" max="1" step="0.001" value="0.432" style="--cc:var(--amber)">
+    <input type="range" id="slF" min="0" max="1" step="0.001" value="0.537" style="--cc:var(--amber)">
     <div class="mm"><span>10 mm</span><span>wide ⟷ tele 200 mm</span></div>
   </div>
 
@@ -220,7 +206,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
 
   <div class="ctl">
     <div class="ctl-top"><label for="slS">Subject distance</label><output id="vS" style="--cc:var(--green)">3.0 m</output></div>
-    <input type="range" id="slS" min="0" max="1" step="0.001" value="0.587" style="--cc:var(--green)">
+    <input type="range" id="slS" min="0" max="1" step="0.001" value="0.45" style="--cc:var(--green)">
     <div class="mm"><span>0.3 m close-up</span><span>50 m far</span></div>
   </div>
 
@@ -230,6 +216,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
       <button class="sen on" data-coc="0.030">Full frame</button>
       <button class="sen" data-coc="0.019">APS-C</button>
       <button class="sen" data-coc="0.015">MFT</button>
+       <button class="sen" data-coc="0.011">2/3″ B4</button>
       <button class="sen" data-coc="0.045">Medium 6×4.5</button>
     </div>
     <div class="coc-note">c = <span id="vCoc">0.030</span> mm (acceptability threshold)</div>
@@ -252,7 +239,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
   <!-- ray trace -->
   <section class="panel" style="--ac:var(--amber)">
     <div class="ptitle"><b></b>Ray trace — thin lens &nbsp;<span id="stateTag" style="color:var(--cyan);letter-spacing:.05em;text-transform:none">real image</span></div>
-    <svg class="bench" viewBox="0 0 1200 520" role="img" aria-label="Ray diagram of a thin lens with a perspective subject and compound lens housing">
+    <svg class="bench" viewBox="0 0 1200 520" role="img" aria-label="Ray diagram of a thin lens">
       <defs>
         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
           <path d="M40 0H0V40" fill="none" stroke="#182536" stroke-width="1"/>
@@ -275,27 +262,12 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
       <!-- light cone -->
       <path id="cone" fill="rgba(255,180,84,.07)"/>
 
-      <!-- perspective context for the photographed subject -->
-      <path class="perspective" d="M56 260 L280 430 M56 260 L520 430 M1144 260 L920 430 M1144 260 L680 430"/>
-      <g id="subjectG" aria-label="person used as a perspective subject">
-        <ellipse class="subject-ground" cx="-28" cy="263" rx="24" ry="5"/>
-        <circle class="subject" cx="-28" cy="181" r="10"/>
-        <path class="subject" d="M-39 195 Q-28 189 -17 195 L-19 226 Q-28 231 -37 226 Z"/>
-        <path class="subject-detail" d="M-36 202 L-20 202 M-28 226 L-35 260 M-28 226 L-21 260 M-37 207 L-45 222 M-19 207 L-11 222"/>
-        <text class="lbl" x="-28" y="283" text-anchor="middle">person</text>
-      </g>
-
       <!-- rays -->
       <path id="rayA" class="ray"/><path id="rayB" class="ray" style="animation-delay:-.35s"/>
       <path id="rayC" class="ray" style="animation-delay:-.7s"/>
 
-      <!-- compound lens appearance; calculations still use its effective focal length -->
-      <g id="lensAssembly" aria-label="compound lens shown as an effective thin lens">
-        <path class="lens-barrel" d="M584 160 Q574 260 584 360 H616 Q626 260 616 160 Z"/>
-        <ellipse class="lens-element" cx="589" cy="260" rx="9" ry="91"/>
-        <ellipse class="lens-element" cx="611" cy="260" rx="9" ry="91"/>
-        <ellipse cx="600" cy="260" rx="8" ry="94" fill="url(#lensGrad)" stroke="#5fd4ff" stroke-width="1.6"/>
-      </g>
+      <!-- lens + aperture ring -->
+      <ellipse cx="600" cy="260" rx="8" ry="94" fill="url(#lensGrad)" stroke="#5fd4ff" stroke-width="1.6"/>
       <circle id="apRing" cx="600" cy="260" r="20" fill="none" stroke="var(--amber)" stroke-width="1.6" stroke-dasharray="3 4" data-tip="entrance pupil"/>
 
       <!-- image plane -->
@@ -334,33 +306,35 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
   <!-- depth of field -->
   <section class="panel" style="--ac:var(--green)">
     <div class="ptitle"><b></b>Depth of field — sharp band &amp; bokeh scale (log distance)</div>
-    <svg viewBox="0 0 1200 212" role="img" aria-label="Depth of field range on a logarithmic distance scale">
+    <svg viewBox="0 0 1200 360" role="img" aria-label="Depth of field range on a logarithmic distance scale">
       <defs>
         <radialGradient id="bokehGrad"><stop offset="0" stop-color="rgba(255,180,84,.75)"/><stop offset=".6" stop-color="rgba(255,107,94,.35)"/><stop offset="1" stop-color="rgba(255,107,94,0)"/></radialGradient>
       </defs>
 
-      <rect class="band" id="dofBand" x="30" y="50" width="600" height="12"/>
-      <line class="band-edge" id="edgeN" x1="30" y1="48" x2="30" y2="64"/>
-      <line class="band-edge" id="edgeF" x1="630" y1="48" x2="630" y2="64"/>
+      <!-- sharp band (centreline y=119) -->
+      <rect class="band" id="dofBand" x="30" y="112" width="600" height="14"/>
+      <line class="band-edge" id="edgeN" x1="30" y1="110" x2="30" y2="128"/>
+      <line class="band-edge" id="edgeF" x1="630" y1="110" x2="630" y2="128"/>
 
+      <!-- scale ticks (generated) -->
       <g id="ticksG"></g>
 
-      <!-- hyperfocal -->
-      <g id="mH"><path d="M0 56 l7 -9 h-14 z M0 56 l7 9 h-14 z" fill="none" stroke="var(--green)" stroke-width="1.8"/>
-        <text class="mk-lbl" y="22" fill="var(--green)">hyperfocal</text></g>
+      <!-- hyperfocal — label row 2, marker on centreline -->
+      <g id="mH"><path d="M0 119 l8 -11 h-16 z M0 119 l8 11 h-16 z" fill="none" stroke="var(--green)" stroke-width="2"/>
+        <text class="mk-lbl" y="72" fill="var(--green)">hyperfocal</text></g>
 
-      <!-- subject -->
-      <g id="mSubj"><path d="M0 56 l-8 -14 h16 z" fill="var(--amber)"/>
-        <text class="mk-lbl" y="-2" fill="var(--amber)">subject</text></g>
+      <!-- subject — label row 1, marker on centreline -->
+      <g id="mSubj"><path d="M0 119 l-10 -18 h20 z" fill="var(--amber)"/>
+        <text class="mk-lbl" y="30" fill="var(--amber)">subject</text></g>
 
-      <!-- near / far -->
-      <g id="mNear"><line class="mk-line" x1="0" y1="46" x2="0" y2="70" stroke="var(--green)"/>
-        <text class="mk-lbl" y="88" fill="var(--green)">near</text></g>
-      <g id="mFar"><line class="mk-line" x1="0" y1="46" x2="0" y2="70" stroke="var(--cyan)"/>
-        <text class="mk-lbl" y="88" fill="var(--cyan)">far</text></g>
+      <!-- near / far — staggered rows below the scale -->
+      <g id="mNear"><line class="mk-line" x1="0" y1="109" x2="0" y2="129" stroke="var(--green)"/>
+        <text class="mk-lbl" y="210" fill="var(--green)">near</text></g>
+      <g id="mFar"><line class="mk-line" x1="0" y1="109" x2="0" y2="129" stroke="var(--cyan)"/>
+        <text class="mk-lbl" y="246" fill="var(--cyan)">far</text></g>
 
       <!-- bokeh strip -->
-      <line x1="30" y1="128" x2="1170" y2="128" stroke="#24344a" stroke-width="1"/>
+      <line x1="30" y1="272" x2="1170" y2="272" stroke="#24344a" stroke-width="1"/>
       <g id="bokG"></g>
     </svg>
   </section>
@@ -378,7 +352,7 @@ footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display
 </main>
 
 <footer>
-  <span>effective thin-lens model · CoC limits: Dₙ = s(H−f)/(H+s−2f) &nbsp;·&nbsp; blur disc B ≈ (f²/N)|1/s − 1/d|</span>
+  <span>thin-lens model · CoC limits: Dₙ = s(H−f)/(H+s−2f) &nbsp;·&nbsp; D_f = s(H−f)/(H−s) &nbsp;·&nbsp; blur disc B = (f²/N)|s−d| / [d(s−f)]</span>
   <span>FocalBench — interactive optics bench</span>
 </footer>
 </div>
@@ -456,7 +430,8 @@ function compute(o){
   const H=f*f/(N*c)+f;
   let Dn=NaN,Df=NaN;
   if(real){Dn=doMm*(H-f)/(H+doMm-2*f);
-           Df=(doMm<H)?doMm*H/(2*f-H+doMm):Infinity;}
+           /* far limit: solve B(d)=c for d>s → always positive when s<H */
+           Df=(doMm<H)? doMm*(H-f)/(H-doMm) : Infinity;}
   return{doMm,di,M,H,Dn,Df,real,dA:f/N};
 }
 
@@ -470,10 +445,6 @@ function renderBench(o){
   let hI=hO*Math.abs(o.M), clipped=false;
   if(hI>205){hI=205;clipped=true}
   const yI=o.real? AX+hI : AX-hI;
-
-  // Keep the contextual person anchored to the object plane while the
-  // diagram's compressed distance scale changes underneath it.
-  $('subjectG').setAttribute('transform',`translate(${xObj},0)`);
 
   // focal markers
   $('fL').setAttribute('transform',`translate(${LENS-px(o.f)},0)`);
@@ -531,19 +502,19 @@ function renderBench(o){
 function xT(d){if(!isFinite(d))return 1170;const lo=200,hi=150000;
   return 30+Math.max(0,Math.min(1,Math.log10(Math.max(d,lo)/lo)/Math.log10(hi/lo)))*1140}
 
-/* static ticks */
+/* static ticks — scale row sits directly under the band */
 {const g=$('ticksG');[.3,.5,1,2,5,10,20,50].forEach(m=>{
   const x=xT(m*1000),t=document.createElementNS('http://www.w3.org/2000/svg','g');
   t.setAttribute('class','tick');
-  t.innerHTML=`<line x1="${x}" y1="64" x2="${x}" y2="74"/><text x="${x}" y="112">${m} m</text>`;
+  t.innerHTML=`<line x1="${x}" y1="129" x2="${x}" y2="148"/><text x="${x}" y="174">${m} m</text>`;
   g.appendChild(t);});}
 
-/* bokeh dots */
+/* bokeh dots — strip below the dynamic readout rows */
 const BOK=[300,600,1200,2400,4800,9600,19200,38400].map(d=>{
   const x=xT(d),c=document.createElementNS('http://www.w3.org/2000/svg','circle');
-  c.setAttribute('cx',x);c.setAttribute('cy',154);c.setAttribute('r',3);
+  c.setAttribute('cx',x);c.setAttribute('cy',302);c.setAttribute('r',3);
   const t=document.createElementNS('http://www.w3.org/2000/svg','text');
-  t.setAttribute('class','bok-lbl');t.setAttribute('x',x);t.setAttribute('y',198);
+  t.setAttribute('class','bok-lbl');t.setAttribute('x',x);t.setAttribute('y',348);
   t.textContent=fmtMM(d).replace(' ','');
   $('bokG').append(c,t);return{c,d};
 });
@@ -566,7 +537,8 @@ function renderDoF(o){
   $('mH').querySelector('.mk-lbl').textContent=`H ${fmtMM(o.H)}`;
 
   BOK.forEach(b=>{
-    const coc=o.f*o.f/o.N*Math.abs(1/o.doMm-1/b.d);
+    /* exact blur disc: B = (f²/N)|s−d| / [d(s−f)] */
+    const coc=o.f*o.f/o.N*Math.abs(o.doMm-b.d)/Math.abs(b.d*(o.doMm-o.f));
     b.c.setAttribute('r',Math.max(2,Math.min(24,2+Math.sqrt(coc)*5.5)));
     const inF=ok&&b.d>=o.Dn&&(isFinite(o.Df)?b.d<=o.Df:true);
     b.c.setAttribute('class',inF?'bok-in':'bok-out');
